@@ -7,6 +7,8 @@ Nous souhaitons créer un programme d'identifocation de fake news.
 ## DEFINITIONS
 Fake News:
 L'inverse de fake news :
+Attention : prendre en compte que tout est subjectif et in fait ayant réellement eu lieu peut avoir différentes versions et différentes interprétations.
+Si l'on ne peut pas parler de média fiable VS non fiable, nous pouvons lister les médias interdits en Europe ou en France par exemple.
 
 ## DONNEES
 - Liste de sources sûres
