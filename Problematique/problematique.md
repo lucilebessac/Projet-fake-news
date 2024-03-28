@@ -1,5 +1,6 @@
 ### REFLEXION SUR LA PROBLEMATIQUE
 --> Mise en place du code pour répondre à la problématique/remplir la tâche
+--> Le traitement doit être effectué sur le texte
 
 ## ETAT DE L'ART
 - télécharger articles scientifiques : sci-hub
@@ -12,9 +13,15 @@
 ## THEME GENERAL
 Nous souhaitons créer un programme d'identifocation de fake news.
 
-## DEFINITIONS
-Fake News:
-L'inverse de fake news :
+## DEFINITIONS - COMMENT ÇA SE TRADUIT DANS LE TEXTE
+- Fake News:
+- L'inverse de fake news :
+
+- Site "fiable" : définir une liste de critères
+- Site "non fiable" :
+
+- Sensationnel :
+- Qui joue sur les émotions :
 Attention : prendre en compte que tout est subjectif et in fait ayant réellement eu lieu peut avoir différentes versions et différentes interprétations.
 Si l'on ne peut pas parler de média fiable VS non fiable, nous pouvons lister les médias interdits en Europe ou en France par exemple.
 
