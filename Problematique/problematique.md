@@ -1,6 +1,14 @@
 ### REFLEXION SUR LA PROBLEMATIQUE
 --> Mise en place du code pour répondre à la problématique/remplir la tâche
 
+## ETAT DE L'ART
+- télécharger articles scientifiques : sci-hub
+- trouver articles : google scholars
+- https://eidas.ec.europa.eu/efda/tl-browser/#/screen/tl/FR
+- cairn.info
+- https://www.lemonde.fr/les-decodeurs/article/2017/01/23/le-decodex-un-premier-premier-pas-vers-la-verification-de-masse-de-l-information_5067709_4355770.html
+- 
+
 ## THEME GENERAL
 Nous souhaitons créer un programme d'identifocation de fake news.
 
