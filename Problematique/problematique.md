@@ -10,11 +10,16 @@ L'inverse de fake news :
 
 ## DONNEES
 - Liste de sources sûres
+- Corpus de vraies news
 - Liste de sources non sûres
 
 ## METHODE
+- Texte brut ou url en entrée ?
 - Trier en fonction du site ("sûr" ou non)
 - Si pas de données sur la fiabilité du site, regarder les sources (nombre de sources)
 - Sinon, chercher des indices de fake news dans le texte. Mots comme "sensationnel", "buzz", "secoue la toile".
+- Dire si site fiable ou pas / si sources ou pas / sinon indices textuels
+- OBJECTIF : Réponse sous forme de pourcentage de fiabilité/probabilité
+- Évaluation, comparaison avec une méthode similaire si possible
 
 ## EVALUATION
