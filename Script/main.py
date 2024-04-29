@@ -12,9 +12,16 @@ import pandas as pd
 import random
 random.seed(42)
 import math
+
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import ConfusionMatrixDisplay
+
 from dataclasses import dataclass, asdict, field
 from typing import List, Dict
 from datasets import Dataset
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.svm import LinearSVC
 
 #__________DATACLASS
 @dataclass
@@ -69,19 +76,21 @@ def load_json(path_corpura: str) -> Dataset :
     data = Dataset.from_pandas(data)
     return data
 
-def infos(dataset: List[Dict[str, str]]) -> Dict[str, List[int]]:
+def get_index(dataset: List[Dict[str, str]], name: str) -> Dict[str, List[int]]:
     """
     Récupère des informations sur les éléments du dataset en fonction de leur note.
 
     Arguments :
     dataset -- une liste de dictionnaires représentant les données
+    name -- une chaîne de caractères représentant le nom de l'ensemble de données
 
     Returns :
     Un dictionnaire contenant des listes d'identifiants d'éléments, classées par note
     """
+    
     liste_true = []
     liste_false = []
-    liste_else = []
+    liste_mix = []
     liste_unknow = []
     
     for item in dataset:
@@ -90,25 +99,25 @@ def infos(dataset: List[Dict[str, str]]) -> Dict[str, List[int]]:
         elif item["rating"] == "Faux":
             liste_false.append(item["id"])
         elif item["rating"] == "Du vrai / du faux":
-            liste_else.append(item["id"])
+            liste_mix.append(item["id"])
         else: 
             liste_unknow.append(item["id"])
             
     dico_info = {"Vrai" : liste_true,
                  "Faux" : liste_false,
-                 "Mix" : liste_else,
+                 "Mix" : liste_mix,
                  "Inconnue" : liste_unknow
                  }
     
     nb_true = len(liste_true)
     nb_false = len(liste_false)
-    nb_else = len(liste_else)
+    nb_mix = len(liste_mix)
     nb_unknow = len(liste_unknow)
             
-    print(f"Infos corpus : {nb_true=}, {nb_false=}, {nb_else=}, {nb_unknow=}")
+    print(f"Infos corpus {name}: {nb_true=}, {nb_false=}, {nb_mix=}, {nb_unknow=}")
     return dico_info
 
-def split (dataset: List[Dict[str, str]], data: List[int], path: str) -> List[Article] :
+def split(dataset: List[Dict[str, str]], data: List[int], path: str) -> List[Article] :
     """
     Divise un dataset en un sous-ensemble en fonction d'une liste d'indices donnée, puis sauvegarde ce sous-ensemble au format JSON.
     
@@ -138,7 +147,7 @@ def split (dataset: List[Dict[str, str]], data: List[int], path: str) -> List[Ar
     split_corpus = Corpus(matched)
     save_json(split_corpus, path)
     
-    return matched
+    return load_json(path)
 
 def main():
     path_corpura = "../Data/data.json"
@@ -146,8 +155,8 @@ def main():
     # Appel la fonction load_json
     dataset = load_json(path_corpura)
     
-    info = infos(dataset)
-    # print(info)
+    corpus_index = get_index(dataset, "origin")
+    # print(corpus_index)
     
     # Découpage des données en 3 set : train(80%), test(10%), dev(10%)
     id_liste = [item["id"] for item in dataset]
@@ -156,15 +165,52 @@ def main():
     size_train = int(len(id_liste) * 0.8)  
     train = random.sample(id_liste, size_train)
     corpus_train = split(dataset, train, "../Corpus/train.json")
-    
+    train_index = get_index(corpus_train, "train")
+
     # Test
     remain = list(set(id_liste).difference(train))
     test = random.sample(remain, math.ceil((len(id_liste) - len(train)) / 2))
     corpus_test = split(dataset, test, "../Corpus/test.json")
+    test_index = get_index(corpus_test, "test")
     
     # Dev
     dev = list(set(remain).difference(test))
     corpus_dev = split(dataset, dev, "../Corpus/dev.json")
+    dev_index = get_index(corpus_dev, "dev")
+    
+    # On recupère le contenu textuel de chaque set
+    train_txt = corpus_train["content"]
+    test_txt = corpus_test["content"]
+    dev_txt = corpus_dev["content"]
+    
+    # On vectorise 
+    vectorizer = CountVectorizer()
+    X_train = vectorizer.fit_transform(train_txt) # On utilise la methode .fit_tranform() pour le train
+    X_test = vectorizer.transform(test_txt) # On utilise la methode .tranform() pour le test
+    X_dev =  vectorizer.transform(dev_txt)
+    
+    # On recupère le label "rating" de chaque set
+    train_labels = corpus_train["rating"]
+    test_labels = corpus_test["rating"]
+    dev_labels = corpus_dev["rating"]
+    
+    # Entrainement du modèle sur le Train
+    clf = LinearSVC().fit(X_train, train_labels)
+
+    #Score
+    print(clf.score(X_test, test_labels))
+    
+    #Predict
+    print("predictions:", clf.predict(X_test))
+    
+    #Donnee
+    print("vraies classes:",test_labels)
+    
+    pred = clf.predict(X_test)
+    
+    # Visualisation des résultats
+    cm = confusion_matrix(pred, test_labels, labels=clf.classes_)
+    ConfusionMatrixDisplay(cm, display_labels=clf.classes_).plot()
 
 
 #__________MAIN
