@@ -45,8 +45,8 @@ def save_json(corpus: Corpus, path: str) -> None:
     """
     Sauvegarde un objet Corpus au format JSON.
 
-    Args:
-        corpus (Corpus): L'objet Corpus à sauvegarder.
+    Parameters:
+    corpus (Corpus): L'objet Corpus à sauvegarder.
 
     Returns:
         None
@@ -63,7 +63,7 @@ def load_json(path_corpura: str) -> Dataset :
     """
     Charge un fichier JSON et le convertit en objet Dataset.
 
-    Arguments :
+    Parameters :
     path_corpura -- le chemin vers le fichier JSON à charger
 
     Returns :
@@ -80,7 +80,7 @@ def get_index(dataset: List[Dict[str, str]], name: str) -> Dict[str, List[int]]:
     """
     Récupère des informations sur les éléments du dataset en fonction de leur note.
 
-    Arguments :
+    Parameters :
     dataset -- une liste de dictionnaires représentant les données
     name -- une chaîne de caractères représentant le nom de l'ensemble de données
 
@@ -121,7 +121,7 @@ def split(dataset: List[Dict[str, str]], data: List[int], path: str) -> List[Art
     """
     Divise un dataset en un sous-ensemble en fonction d'une liste d'indices donnée, puis sauvegarde ce sous-ensemble au format JSON.
     
-    Arguments :
+    Parameters :
     dataset -- une liste de dictionnaires représentant les données complètes
     data -- une liste d'entiers représentant les indices des éléments à extraire
     path -- le chemin vers le fichier JSON de sortie
@@ -162,7 +162,8 @@ def main():
     id_liste = [item["id"] for item in dataset]
     
     # Train
-    size_train = int(len(id_liste) * 0.8)  
+    size_train = math.ceil(len(id_liste) * 0.8)
+    print(size_train)
     train = random.sample(id_liste, size_train)
     corpus_train = split(dataset, train, "../Corpus/train.json")
     train_index = get_index(corpus_train, "train")
