@@ -163,7 +163,6 @@ def main():
     
     # Train
     size_train = math.ceil(len(id_liste) * 0.8)
-    print(size_train)
     train = random.sample(id_liste, size_train)
     corpus_train = split(dataset, train, "../Corpus/train.json")
     train_index = get_index(corpus_train, "train")
@@ -210,7 +209,7 @@ def main():
     pred = clf.predict(X_test)
     
     # Visualisation des résultats
-    cm = confusion_matrix(pred, test_labels, labels=clf.classes_)
+    cm = confusion_matrix(test_labels, pred, labels=clf.classes_)
     ConfusionMatrixDisplay(cm, display_labels=clf.classes_).plot()
 
 
