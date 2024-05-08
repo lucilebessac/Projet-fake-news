@@ -11,18 +11,31 @@ import scipy  # Bibliothèque scientifique pour Python
 import sklearn  # Bibliothèque de machine learning
 from nltk.corpus import stopwords
 import matplotlib.pyplot as plt
+from dataclasses import dataclass
+from typing import List
 
+# Définition des classes Article et Corpus
+@dataclass
+class Article:
+    id: int
+    content: str
+    rating: int
+
+@dataclass
+class Corpus:
+    items: List[Article]
 
 # Téléchargez la liste de mots d'arrêt en français si ce n'est pas déjà fait
 nltk.download('stopwords')
 
-
 # Charger les données JSON
-with open('./Data/data.json', 'r', encoding='utf-8') as f:
+with open('../Data/data.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
-# Convertir les données JSON en DataFrame pandas
-df = pd.DataFrame(data['items'])
+# Convertir les données JSON en une liste d'articles
+articles = [Article(id=item['id'], content=item['content'], rating=item['rating']) for item in data['items']]
+# Convertir la liste d'articles en DataFrame pandas
+df = pd.DataFrame([article.__dict__ for article in articles])
 
 # Diviser les données en ensembles d'entraînement et de test
 train_data, test_data = train_test_split(df, test_size=0.2, random_state=42)
@@ -55,7 +68,11 @@ y_pred = nb_classifier.predict(X_test_tfidf)
 # Évaluer le modèle
 accuracy = accuracy_score(y_test, y_pred)
 conf_matrix = confusion_matrix(y_test, y_pred)
+# Make predictions on the test set
+predictions = nb_classifier.predict(X_test_tfidf)
 
+# Print the predictions
+print("Predictions:", predictions)
 print("Accuracy:", accuracy)
 print("Confusion Matrix:\n", conf_matrix)
 
@@ -71,34 +88,13 @@ cax = ax.imshow(dense_matrix, interpolation='nearest', cmap=plt.cm.coolwarm)
 # Ajouter une barre de couleur pour indiquer l'échelle
 fig.colorbar(cax)
 
+# Convert to dense matrix
+X_train_dense = X_train_count.toarray()
+
+# Convert to DataFrame
+df = pd.DataFrame(X_train_dense, columns=count_vectorizer.get_feature_names_out())
+
+# Print the DataFrame
+print(df)
 # Afficher l'image
 plt.show()
-
-""" 
-faire un classificateur et comparer avec une autre methode
-analyse de sentiment, analyse de source
-
-sans / avec preprocessing à faire (ponctuation, majuscule)
-ajouter aux test sur des tokens ou des ngramm
-
-maniere de vect : countvectorizer, tf-idf, 
-
-
-
-methode : arbre de decision, randomforest, svm
-
-test 10%
-train 90%
-
-
-Présentation le 16 mai 
-Durée : 15 minutes max
-
-Présenter
-- Cadre (intro, pk ce sujet, l'interet) 
-- Methodes (comment pk etc)
-- Résultats (pk l'une fonctionne mieux que l'autre
-- Difficultés rencontrées (temps, ressources, corpus, ..)
-- Perspectives d'améliorations (comment améliorer)
-
-Rapport écrit : état de l'art , explications poussées (appuyer sur les resultats, les difficultés) mettre des images, citer les sources/références (corpus, articles, ..) """

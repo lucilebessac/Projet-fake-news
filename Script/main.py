@@ -38,7 +38,7 @@ def main():
         "--preprocess",
         choices=["yes", "no"],
         default="no",
-        help="Supprimer les stopwords de l'analyse."
+        help="Supprimer les stopwords de l'analyse et les ponctuations."
     )
     parser.add_argument(
         "-v",
@@ -100,14 +100,14 @@ def main():
     # On vectorise selon le vectorizer choisi
     if args.vectorize == "count":
         if args.preprocess == "yes":
-            vectorizer = CountVectorizer(stop_words=french_stop_words)
+            vectorizer = CountVectorizer(stop_words=french_stop_words, token_pattern=r'\b[^\d\W]+\b')
         else:
             vectorizer = CountVectorizer()
         X_train = vectorizer.fit_transform(train_txt) # Ajustement sur les données d'entraînement
         X_test = vectorizer.transform(test_txt) # Transformation des données de test en utilisant le même vocabulaire
     elif args.vectorize == "tfidf":
         if args.preprocess == "yes":
-            vectorizer = TfidfVectorizer(stop_words=french_stop_words)
+            vectorizer = TfidfVectorizer(stop_words=french_stop_words, token_pattern=r'\b[^\d\W]+\b')
         else:
             vectorizer = TfidfVectorizer()
         X_train = vectorizer.fit_transform(train_txt)
