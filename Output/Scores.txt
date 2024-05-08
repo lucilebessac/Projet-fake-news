@@ -1,0 +1,38 @@
+python3 main.py -v hash -m svc ../Data/data_enrichi.json
+Score :  0.7464788732394366
+
+python3 main.py -v count -m svc ../Data/data_enrichi.json
+Score :  0.7887323943661971
+
+python3 main.py -v tfidf -m svc ../Data/data_enrichi.json
+Score :  0.8732394366197183
+
+
+python3 main.py -v hash -m multi ../Data/data_enrichi.json
+ValueError: Negative values in data passed to MultinomialNB (input X)
+
+python3 main.py -v count -m multi ../Data/data_enrichi.json
+Score :  0.8028169014084507
+
+python3 main.py -v tfidf -m multi ../Data/data_enrichi.json
+Score :  0.8169014084507042
+
+
+python3 main.py -v hash -m dtree ../Data/data_enrichi.json
+Score :  0.6338028169014085
+
+python3 main.py -v count -m dtree ../Data/data_enrichi.json
+Score :  0.5915492957746479
+
+python3 main.py -v tfidf -m dtree ../Data/data_enrichi.json
+Score :  0.676056338028169
+
+
+python3 main.py -v hash -m rforest ../Data/data_enrichi.json
+Score :  0.8591549295774648
+
+python3 main.py -v count -m rforest ../Data/data_enrichi.json
+Score :  0.8450704225352113
+
+python3 main.py -v tfidf -m rforest ../Data/data_enrichi.json
+Score :  0.8169014084507042

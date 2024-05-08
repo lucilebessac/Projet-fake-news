@@ -82,12 +82,12 @@ def main():
     size_train = math.ceil(len(id_liste) * 0.9)
     train = random.sample(id_liste, size_train)
     corpus_train = split(dataset, train, "../Corpus/train.json")
-    #train_index = get_index(corpus_train, "train")
+    train_index = get_index(corpus_train, "train")
 
     # Test
     test = list(set(id_liste).difference(train))
     corpus_test = split(dataset, test, "../Corpus/test.json")
-    #test_index = get_index(corpus_test, "test")
+    test_index = get_index(corpus_test, "test")
     
     # On recupère le contenu textuel de chaque set
     train_txt = corpus_train["content"]
