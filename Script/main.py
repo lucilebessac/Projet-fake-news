@@ -150,7 +150,7 @@ def split(dataset: List[Dict[str, str]], data: List[int], path: str) -> List[Art
     return load_json(path)
 
 def main():
-    path_corpura = "../Data/data.json"
+    path_corpura = "../Data/data_enrichi.json"
     
     # Appel la fonction load_json
     dataset = load_json(path_corpura)

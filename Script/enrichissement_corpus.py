@@ -8,7 +8,7 @@ uniques aux nouveaux éléments ajoutés.
 
 dossier_nouveaux_articles : dossier/*.txt - le dossier contenant les fichier txt à ajouter
 fichier_corpus : .json - le fichier d'entrée à enrichir
-fichier_corpus_enrichi : .json - le fichier de sorti, peut être le même que le fichier d'entrée
+fichier_corpus_enrichi : .json - le fichier de sortie, peut être le même que le fichier d'entrée
 Auteur : Lucile BESSAC
 Date : 04/05/2024
 
@@ -44,9 +44,14 @@ def txt_to_json(dossier_nouveaux_articles, fichier_corpus, fichier_corpus_enrich
                     # Création de l'élément article JSON
                     item = {
                         "id": nouvel_id,
+                        "url": "-",
+                        "author": "-",
+                        "date": "-",
                         "rating": "Vrai",
                         "title": title,
-                        "content": content
+                        "resume": "-",
+                        "content": content,
+                        "category": "-"
                     }
                     nouveaux_items_articles.append(item)
 
@@ -59,7 +64,7 @@ def txt_to_json(dossier_nouveaux_articles, fichier_corpus, fichier_corpus_enrich
 
 # Appel de la fonction principale
 if __name__ == "__main__":
-    dossier_nouveaux_articles = "../../../Corpus 2022/dev"
+    dossier_nouveaux_articles = "../../../Corpus 2022/train"
     fichier_corpus = "../Data/data_enrichi.json"
     fichier_corpus_enrichi = "../Data/data_enrichi.json"
     txt_to_json(dossier_nouveaux_articles, fichier_corpus, fichier_corpus_enrichi)
