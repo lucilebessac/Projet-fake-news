@@ -17,11 +17,11 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import ConfusionMatrixDisplay
 
-from dataclasses import dataclass, asdict, field
+from dataclasses import dataclass, asdict
 from typing import List, Dict
 from datasets import Dataset
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.svm import LinearSVC
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.tree import DecisionTreeClassifier
 
 #__________DATACLASS
 @dataclass
@@ -104,10 +104,10 @@ def get_index(dataset: List[Dict[str, str]], name: str) -> Dict[str, List[int]]:
             liste_unknow.append(item["id"])
             
     dico_info = {"Vrai" : liste_true,
-                 "Faux" : liste_false,
-                 "Mix" : liste_mix,
-                 "Inconnue" : liste_unknow
-                 }
+                "Faux" : liste_false,
+                "Mix" : liste_mix,
+                "Inconnue" : liste_unknow
+                }
     
     nb_true = len(liste_true)
     nb_false = len(liste_false)
@@ -184,34 +184,34 @@ def main():
     dev_txt = corpus_dev["content"]
     
     # On vectorise 
-    vectorizer = CountVectorizer()
-    X_train = vectorizer.fit_transform(train_txt) # On utilise la methode .fit_tranform() pour le train
-    X_test = vectorizer.transform(test_txt) # On utilise la methode .tranform() pour le test
+    vectorizer = TfidfVectorizer()
+    X_train = vectorizer.fit_transform(train_txt) # On utilise la méthode .fit_tranform() pour le train
+    X_test = vectorizer.transform(test_txt) # On utilise la méthode .tranform() pour le test
     X_dev =  vectorizer.transform(dev_txt)
-    
+        
     # On recupère le label "rating" de chaque set
     train_labels = corpus_train["rating"]
     test_labels = corpus_test["rating"]
     dev_labels = corpus_dev["rating"]
     
     # Entrainement du modèle sur le Train
-    clf = LinearSVC().fit(X_train, train_labels)
+    clf = DecisionTreeClassifier().fit(X_train, train_labels)
 
-    #Score
+    # Score
     print(clf.score(X_test, test_labels))
-    
-    #Predict
-    print("predictions:", clf.predict(X_test))
-    
-    #Donnee
-    print("vraies classes:",test_labels)
-    
+
+    # Prédiction
+    print("Prédictions:", clf.predict(X_test))
+
+    # Données
+    print("Vraies classes:", test_labels)
+
     pred = clf.predict(X_test)
-    
+
     # Visualisation des résultats
     cm = confusion_matrix(test_labels, pred, labels=clf.classes_)
     ConfusionMatrixDisplay(cm, display_labels=clf.classes_).plot()
-    plt.savefig('../Data/matrice_confusion.png')
+    plt.savefig('../Data/matrice_confusion_tfidf-decision_tree.png')
 
 #__________MAIN
 if __name__ == "__main__":
