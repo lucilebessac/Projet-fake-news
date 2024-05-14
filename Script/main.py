@@ -30,6 +30,24 @@ from sklearn.feature_extraction.text import HashingVectorizer
 
 #__________FUNCTIONS
 
+def precision_rappel(pred, test_labels):
+    classes = set(test_labels)
+    compare = {}
+    for i, element in enumerate(test_labels):
+        if pred[i] == element:
+            compare[element] = compare.get(element, 0) +1
+    for classe in compare:
+        print("Précision {classe}: {score}".format(
+            classe=classe,
+            score=compare[classe]/len([x for x in pred if x == classe]))
+            )
+
+    print("")
+    for classe in compare:
+        print("Rappel {classe}: {score}".format(
+            classe=classe,
+            score=compare[classe]/len([x for x in test_labels if x == classe]))
+            )
 
 #__________MODULES
 def main():
@@ -77,17 +95,22 @@ def main():
     
     # Découpage des données en 2 set : train(90%), test(10%)
     id_liste = [item["id"] for item in dataset]
+    size_index = len(id_liste)
+    print(f"{size_index=}")
     
     # Train
     size_train = math.ceil(len(id_liste) * 0.9)
     train = random.sample(id_liste, size_train)
     corpus_train = split(dataset, train, "../Corpus/train.json")
     train_index = get_index(corpus_train, "train")
+    print(f"{size_train=}")
 
     # Test
     test = list(set(id_liste).difference(train))
+    size_test = len(test)
     corpus_test = split(dataset, test, "../Corpus/test.json")
     test_index = get_index(corpus_test, "test")
+    print(f"{size_test=}")
     
     # On recupère le contenu textuel de chaque set
     train_txt = corpus_train["content"]
@@ -126,16 +149,19 @@ def main():
     elif args.model == "rforest":
         clf = RandomForestClassifier().fit(X_train, train_labels)
 
-    #Score
+    # Score
     print("Score : ", clf.score(X_test, test_labels))
     
-    #Predict
+    # Predict
     print("predictions:", clf.predict(X_test))
     
-    #Donnee
+    # Donnee
     print("vraies classes:",test_labels)
     
     pred = clf.predict(X_test)
+    
+    # Appel de la fonction precision_rappel
+    precision_rappel(pred, test_labels)
     
     # Visualisation des résultats
     cm = confusion_matrix(test_labels, pred, labels=clf.classes_)
