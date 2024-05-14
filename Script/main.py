@@ -40,6 +40,24 @@ def preprocess_text(text_list, stop_words, lemmatize):
         preprocessed_text = [' '.join([lemmatizer.lemmatize(word) for word in word_tokenize(text)]) for text in preprocessed_text]
     return preprocessed_text
 
+def precision_rappel(pred, test_labels):
+    classes = set(test_labels)
+    compare = {}
+    for i, element in enumerate(test_labels):
+        if pred[i] == element:
+            compare[element] = compare.get(element, 0) +1
+    for classe in compare:
+        print("Précision {classe}: {score}".format(
+            classe=classe,
+            score=compare[classe]/len([x for x in pred if x == classe]))
+            )
+
+    print("")
+    for classe in compare:
+        print("Rappel {classe}: {score}".format(
+            classe=classe,
+            score=compare[classe]/len([x for x in test_labels if x == classe]))
+
 
 def main():
     # Fonction principale
@@ -131,11 +149,20 @@ def main():
     elif args.model == "rforest":
         clf = RandomForestClassifier().fit(X_train, train_labels)
 
+    # score
     print("Score : ", clf.score(X_test, test_labels))
+
+    # predict
     print("predictions:", clf.predict(X_test))
+
+    # donnée
     print("vraies classes:", test_labels)
     
     pred = clf.predict(X_test)
+
+    # Appel de la fonction precision_rappel
+    precision_rappel(pred, test_labels)
+
     # Visualisation des résultats
     cm = confusion_matrix(test_labels, pred, labels=clf.classes_)
     disp = ConfusionMatrixDisplay(cm, display_labels=clf.classes_).plot()
