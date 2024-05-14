@@ -21,8 +21,7 @@ from datastructures import save_json, load_json, get_index, split
 #nltk.download('stopwords')
 
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, precision_score, recall_score, classification_report
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import HashingVectorizer
@@ -126,17 +125,29 @@ def main():
     elif args.model == "rforest":
         clf = RandomForestClassifier().fit(X_train, train_labels)
 
-    #Score
-    print("Score : ", clf.score(X_test, test_labels))
-    
-    #Predict
-    print("predictions:", clf.predict(X_test))
+    #F1-Score
+    score = clf.score(X_test, test_labels)
+    print("Score : ", score)
     
     #Donnee
-    print("vraies classes:",test_labels)
+    # print("vraies classes:",test_labels)
     
+    #Prédictions
     pred = clf.predict(X_test)
-    
+    # print("predictions:", pred)
+
+    # Classification Report
+    report = classification_report(test_labels, pred)
+    print("Classification Report:\n", report)
+
+    # Précision
+    precision = precision_score(test_labels, pred, average='weighted')
+    print("Precision : ", precision)
+
+    # Rappel
+    recall = recall_score(test_labels, pred, average='weighted')
+    print("Recall : ", recall)
+
     # Visualisation des résultats
     cm = confusion_matrix(test_labels, pred, labels=clf.classes_)
     disp = ConfusionMatrixDisplay(cm, display_labels=clf.classes_).plot()
