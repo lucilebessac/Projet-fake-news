@@ -10,12 +10,16 @@ Created on Thu May  2 16:00:22 2024
 #__________MODULES
 import json
 import pandas as pd
-
 from typing import List, Dict, Union
 from datasets import Dataset
 from dataclasses import dataclass, asdict, field
-from nltk.stem import WordNetLemmatizer  # Outil pour la lemmatisation
-from sklearn.feature_extraction.text import CountVectorizer  # Classe pour la vectorisation de texte
+from sklearn.feature_extraction.text import (  # Pour la vectorisation de texte
+    CountVectorizer,
+)
+from nltk.stem import WordNetLemmatizer  # Ajoutez cette ligne si elle n'est pas 
+from nltk.tokenize import word_tokenize
+
+
 
 #__________DATACLASS
 @dataclass
@@ -98,10 +102,10 @@ def get_index(dataset: List[Dict[str, str]], name: str) -> Dict[str, List[int]]:
             liste_unknow.append(item["id"])
             
     dico_info = {"Vrai" : liste_true,
-                "Faux" : liste_false,
-                "Mix" : liste_mix,
-                "Inconnue" : liste_unknow
-                }
+                 "Faux" : liste_false,
+                 "Mix" : liste_mix,
+                 "Inconnue" : liste_unknow
+                 }
     
     nb_true = len(liste_true)
     nb_false = len(liste_false)
