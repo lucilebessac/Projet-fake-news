@@ -15,8 +15,6 @@ import sys  # Module fournissant un accès à certaines variables utilisées ou 
 import matplotlib.pyplot as plt  # Module pour la création de graphiques et de visualisations
 import nltk  # Bibliothèque pour le traitement du langage naturel
 from nltk.corpus import stopwords  # Corpus de mots vides pour différentes langues
-from nltk.stem import WordNetLemmatizer  # Outil pour la lemmatisation
-from nltk.tokenize import word_tokenize  # Outil pour la tokenisation
 from sklearn.ensemble import RandomForestClassifier  # Classe pour l'algorithme de RandomForest
 from sklearn.feature_extraction.text import (  # Classes pour la vectorisation de texte
     CountVectorizer,
