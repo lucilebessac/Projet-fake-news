@@ -4,13 +4,14 @@
 Created on Thu May  2 16:00:22 2024
 
 @author: guilhem
+
 """
 
 #__________MODULES
 import json
 import pandas as pd
 
-from typing import List, Dict
+from typing import List, Dict, Union
 from datasets import Dataset
 from dataclasses import dataclass, asdict, field
 
@@ -139,3 +140,30 @@ def split(dataset: List[Dict[str, str]], data: List[int], path: str) -> List[Art
     save_json(split_corpus, path)
     
     return load_json(path)
+
+def preprocess_text(text_list: List[str], stop_words: Union[List[str], None], lemmatize: str) -> List[str]:
+    """
+    Cette fonction prétraite le texte en supprimant les stopwords et en lemmatisant si nécessaire.
+
+    Parameters:
+        text_list (List[str]): Liste des textes à prétraiter.
+        stop_words (Union[List[str], None]): Liste des mots à supprimer (stopwords), ou None si aucun.
+        lemmatize (str): Indique si la lemmatisation doit être effectuée ('yes') ou non ('no').
+
+    Returns:
+        List[str]: Liste des textes prétraités.
+    """
+    vectorizer = CountVectorizer(stop_words=stop_words, token_pattern=r"\b[^\d\W]+\b")
+    vectors = vectorizer.fit_transform(text_list)
+    preprocessed_text = [
+        " ".join(vectorizer.inverse_transform(vector)[0]) for vector in vectors
+    ]
+    if lemmatize == "yes":
+        lemmatizer = WordNetLemmatizer()
+        preprocessed_text = [
+            " ".join([lemmatizer.lemmatize(word) for word in word_tokenize(text)])
+            for text in preprocessed_text
+        ]
+    return preprocessed_text
+
+#_END

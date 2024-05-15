@@ -1,8 +1,11 @@
-import os
-import json
-
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-Ce script charge des articles dans des fichiers .txt à partir d'un dossier spécifié, extrait les titres et les contenus de ces articles,
+Created on Thu May  4 12:34:52 2024
+
+@author: lucile
+
+Decription : Ce script charge des articles dans des fichiers .txt à partir d'un dossier spécifié, extrait les titres et les contenus de ces articles,
 puis les ajoute à un fichier JSON existant. Il utilise également le dernier ID du fichier JSON pour attribuer des IDs
 uniques aux nouveaux éléments ajoutés.
 
@@ -11,9 +14,14 @@ fichier_corpus : .json - le fichier d'entrée à enrichir
 fichier_corpus_enrichi : .json - le fichier de sortie, peut être le même que le fichier d'entrée
 Auteur : Lucile BESSAC
 Date : 04/05/2024
-
 """
 
+#__________MODULES
+import os
+import json
+
+
+#__________FUNCTIONS
 # Charge le document JSON pour récupérer le dernier ID
 def get_dernier_id(corpus_json_existant):
     with open(corpus_json_existant) as f:
@@ -62,9 +70,12 @@ def txt_to_json(dossier_nouveaux_articles, fichier_corpus, fichier_corpus_enrich
     with open(fichier_corpus_enrichi, 'w', encoding='utf-8') as output_file:
         json.dump(data, output_file, ensure_ascii=False, indent=4)
 
+#__________MAIN
 # Appel de la fonction principale
 if __name__ == "__main__":
     dossier_nouveaux_articles = "../../../Corpus 2022/train"
     fichier_corpus = "../Data/data_enrichi.json"
     fichier_corpus_enrichi = "../Data/data_enrichi.json"
     txt_to_json(dossier_nouveaux_articles, fichier_corpus, fichier_corpus_enrichi)
+
+#_END
