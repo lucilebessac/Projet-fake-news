@@ -184,7 +184,7 @@ def main():
     disp.plot()
     
     # Sauvegarde de la figure
-    filename = f'../Output/{args.vectorize}-{args.model}'
+    filename = f'../MatricesDeConfusion/{args.vectorize}-{args.model}'
     if args.preprocess == 'yes':
         filename += '-preprocessed'
     if args.lemmatize == 'yes':
