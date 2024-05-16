@@ -55,8 +55,11 @@ $ python main.py [-p {yes,no}] [-l {yes,no}] [-v {count,tfidf,hash}] [-m {svc,mu
         'dtree' pour DecisionTree
         'rforest' pour RandomForest
 
+`-t`, `--table` : Retourne un graphe comparant la valeur de la precision de chaque modèle.
+
+
 ## Exemple
 
 ```bash
-$ python main.py -p yes -l yes -v tfidf -m svc ../Data/data_enrichi.json
+$ python main.py -p yes -l yes -v tfidf -m svc -t ../Data/data_enrichi.json
 ```
