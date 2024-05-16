@@ -87,6 +87,7 @@ def main():
         "-t",
         "--table",
         choices=["all"],
+        default="all",
         help="Retourne un tableau avec la valeur de la precision en fonction du modèle",
     )
     args = parser.parse_args()
