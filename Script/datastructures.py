@@ -102,10 +102,10 @@ def get_index(dataset: List[Dict[str, str]], name: str) -> Dict[str, List[int]]:
             liste_unknow.append(item["id"])
             
     dico_info = {"Vrai" : liste_true,
-                 "Faux" : liste_false,
-                 "Mix" : liste_mix,
-                 "Inconnue" : liste_unknow
-                 }
+                "Faux" : liste_false,
+                "Mix" : liste_mix,
+                "Inconnue" : liste_unknow
+                }
     
     nb_true = len(liste_true)
     nb_false = len(liste_false)

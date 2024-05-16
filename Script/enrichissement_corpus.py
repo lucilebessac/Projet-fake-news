@@ -5,15 +5,13 @@ Created on Thu May  4 12:34:52 2024
 
 @author: lucile
 
-Decription : Ce script charge des articles dans des fichiers .txt à partir d'un dossier spécifié, extrait les titres et les contenus de ces articles,
-puis les ajoute à un fichier JSON existant. Il utilise également le dernier ID du fichier JSON pour attribuer des IDs
-uniques aux nouveaux éléments ajoutés.
+Decription : Ce script charge des articles dans des fichiers .txt à partir d'un dossier spécifié, extrait les titres 
+et les contenus de ces articles, puis les ajoute à un fichier JSON existant. Il utilise également le dernier ID du 
+fichier JSON pour attribuer des IDs uniques aux nouveaux éléments ajoutés.
 
 dossier_nouveaux_articles : dossier/*.txt - le dossier contenant les fichier txt à ajouter
 fichier_corpus : .json - le fichier d'entrée à enrichir
 fichier_corpus_enrichi : .json - le fichier de sortie, peut être le même que le fichier d'entrée
-Auteur : Lucile BESSAC
-Date : 04/05/2024
 """
 
 #__________MODULES
@@ -71,7 +69,7 @@ def txt_to_json(dossier_nouveaux_articles, fichier_corpus, fichier_corpus_enrich
         json.dump(data, output_file, ensure_ascii=False, indent=4)
 
 #__________MAIN
-# Appel de la fonction principale
+# Appel de la fonction main
 if __name__ == "__main__":
     dossier_nouveaux_articles = "../../../Corpus 2022/train"
     fichier_corpus = "../Data/data_enrichi.json"

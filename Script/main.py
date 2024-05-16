@@ -16,8 +16,6 @@ import pandas as pd # Module pandas pour manipuler des tableurs
 import matplotlib.pyplot as plt  # Module pour la création de graphiques et de visualisations
 import nltk  # Bibliothèque pour le traitement du langage naturel
 from nltk.corpus import stopwords  # Corpus de mots vides pour différentes langues
-from nltk.stem import WordNetLemmatizer  # Outil pour la lemmatisation
-from nltk.tokenize import word_tokenize  # Outil pour la tokenisation
 from sklearn.ensemble import RandomForestClassifier  # Classe pour l'algorithme de RandomForest
 from sklearn.feature_extraction.text import (  # Pour la vectorisation de texte
     CountVectorizer,
@@ -28,17 +26,13 @@ from sklearn.metrics import (  # Pour l'évaluation des modèles
     ConfusionMatrixDisplay,
     confusion_matrix,
     classification_report,
-    precision_score,
-    recall_score,
 )
 from sklearn.naive_bayes import MultinomialNB  # Pour l'algorithme de Naive Bayes multinomial
 from sklearn.svm import LinearSVC  # Pour l'algorithme SVM linéaire
 from sklearn.tree import DecisionTreeClassifier  # Pour l'algorithme de l'arbre de décision
 
 from datastructures import (  # Importer les fonctions personnalisées depuis le fichier datastructures.py
-    get_index,
     load_json,
-    save_json,
     split,
     preprocess_text,
 )
@@ -88,7 +82,7 @@ def main():
         "--table",
         choices=["all"],
         default="all",
-        help="Retourne un tableau avec la valeur de la precision en fonction du modèle",
+        help="Retourne un graphe comparant la valeur de la precision de chaque modèle",
     )
     args = parser.parse_args()
     # Vérification du format du fichier
