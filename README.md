@@ -11,6 +11,8 @@ Ce projet a pour but de comparer différentes méthodes de preprocessing, de vec
 - [Installation](#installation)
 - [Utilisation](#utilisation)
 - [Exemple](#exemple)
+- [Boîte à outils](#boîte_à_outils)
+
 
 ## Installation
 
@@ -63,3 +65,8 @@ $ python main.py [-p {yes,no}] [-l {yes,no}] [-v {count,tfidf,hash}] [-m {svc,mu
 ```bash
 $ python main.py -p yes -l yes -v tfidf -m svc -t ../Data/data_enrichi.json
 ```
+
+## Boîte à outils
+
+Le script principal est accompagné d'une boîte à outils composée des scripts `enrichissement_corpus.py` et `modif_ids_data.py`, servant respectivement à ajouter de nouveaux textes au format .txt au corpus au format .json, et à réarranger les id en cas de suppression de d'un item.
+
