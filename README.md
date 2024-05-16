@@ -40,12 +40,16 @@ Arguments positionnels :
 Arguments facultatifs :
 
 `-h`, `--help` : Affiche le message d'aide et quitte le programme.
+
 `-p` `{yes,no}`, `--preprocess` `{yes,no}` : Supprime les stopwords de l'analyse.
+
 `-l` `{yes,no}`, `--lemmatize` `{yes,no}` : Lemmatise le texte.
+
 `-v` `{count,tfidf,hash}`, `--vectorize` `{count,tfidf,hash}` : Choisissez le vectorizer :
         'count' pour CountVectorizer
         'tfidf' pour TfidfVectorizer
         'hash' pour HashingVectorizer
+
 `-m` `{svc,multi,dtree,rforest}`, `--model` `{svc,multi,dtree,rforest}` : Choisissez un modèle :
         'svc' pour LinearSVC
         'multi' pour MultinomialNB
