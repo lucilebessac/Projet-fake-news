@@ -32,11 +32,11 @@ Pour utiliser ce programme, exécutez `main.py` avec les arguments suivants :
 $ python main.py [-p {yes,no}] [-l {yes,no}] [-v {count,tfidf,hash}] [-m {svc,multi,dtree,rforest}] file
 ```
 
-Arguments positionnels :
+### Arguments positionnels :
 
 `file` : Chemin vers le fichier qui contient le corpus au format JSON.
 
-Arguments facultatifs :
+### Arguments facultatifs :
 
 `-h`, `--help` : Affiche le message d'aide et quitte le programme.
 
