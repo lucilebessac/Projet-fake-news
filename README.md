@@ -10,8 +10,7 @@ Ce projet a pour but de comparer différentes méthodes de preprocessing, de vec
 
 - [Installation](#installation)
 - [Utilisation](#utilisation)
-- [Contribuer](#contribuer)
-- [Licence](#licence)
+- [Exemple](#exemple)
 
 ## Installation
 
@@ -55,3 +54,9 @@ Arguments facultatifs :
         'multi' pour MultinomialNB
         'dtree' pour DecisionTree
         'rforest' pour RandomForest
+
+## Exemple
+
+```bash
+$ python main.py -p yes -l yes -v tfidf -m svc ../Data/data_enrichi.json
+```
