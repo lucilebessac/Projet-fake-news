@@ -8,10 +8,15 @@ Ce projet a pour but de comparer différentes méthodes de preprocessing, de vec
 
 ## Table des matières
 
-- [Installation](#installation)
-- [Utilisation](#utilisation)
-- [Exemple](#exemple)
-- [Boîte à outils](#boîte_à_outils)
+- [Projet-fake-news](#projet-fake-news)
+  - [Description](#description)
+  - [Table des matières](#table-des-matières)
+  - [Installation](#installation)
+  - [Utilisation](#utilisation)
+    - [Arguments positionnels :](#arguments-positionnels-)
+    - [Arguments facultatifs :](#arguments-facultatifs-)
+  - [Exemple](#exemple)
+  - [Boîte à outils](#boîte-à-outils)
 
 
 ## Installation
@@ -20,10 +25,11 @@ Ce programme python est prévu pour fonctionner sous Linux.
 Installez les librairies suivantes :
 
 ```bash
+$ pip install pandas
 $ pip install matplotlib
 $ pip install nltk
 $ pip install sklearn
-$ pip install datastructures
+$ pip install argparse
 ```
 
 ## Utilisation
@@ -68,5 +74,9 @@ $ python main.py -p yes -l yes -v tfidf -m svc -t ../Data/data_enrichi.json
 
 ## Boîte à outils
 
-Le script principal est accompagné d'une boîte à outils composée des scripts `enrichissement_corpus.py` et `modif_ids_data.py`, servant respectivement à ajouter de nouveaux textes au format .txt au corpus au format .json, et à réarranger les id en cas de suppression de d'un item.
+Le script principal est accompagné d'une boîte à outils composée des scripts `scrapping.py`, `enrichissement_corpus.py`, `modif_ids_data.py`.
+
+- `scrapping.py` : sert à scrapper le web pour créer un fichier corpus au format .json, 
+- `enrichissement_corpus.py` : sert à ajouter des textes (stockés en .txt) au corpus (au format .json),
+- `modif_ids_data.py` : sert a  réarranger les id en cas de suppression d'un item.
 
