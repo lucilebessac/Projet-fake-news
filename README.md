@@ -6,6 +6,10 @@ Dépôt Git pour le projet de groupe du cours d'extraction d'informations. Proje
 
 Ce projet a pour but de comparer différentes méthodes de preprocessing, de vectorisation et de classification de fake news en français, et de déterminer la meilleure combinaison.
 
+## Compte Rendu
+
+Pour lire le compte rendu intégrale réalisé par l'équipe, rendez vous sur la branche Doc.
+
 ## Table des matières
 
 - [Projet-fake-news](#projet-fake-news)
