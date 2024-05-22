@@ -8,7 +8,7 @@ Ce projet a pour but de comparer différentes méthodes de preprocessing, de vec
 
 ## Compte Rendu
 
-Pour lire le compte rendu intégrale réalisé par l'équipe, rendez vous sur la branche Doc.
+Pour lire le compte rendu intégral réalisé par l'équipe, rendez vous sur la branche Doc.
 
 ## Table des matières
 
